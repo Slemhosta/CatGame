@@ -110,7 +110,18 @@ public class DayManager : MonoBehaviour {
 			newOwnerObj.SetActive (false);
 			radio.clip = track1;
 			radio.Play ();
-			sleepLap = true;
+
+            if (pL.foodLayer.activeInHierarchy == false)
+            {
+                catState.sprite = bodNervous;
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    sleepLap = true;
+                    catState.sprite = bodHappy;
+                }
+                
+            }
 
 		}
 
