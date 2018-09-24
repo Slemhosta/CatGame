@@ -7,6 +7,12 @@ public class PlayerMovement : MonoBehaviour {
 	public Rigidbody2D rb2d;
 	public Animator anim;
 
+    public AudioSource catAudio;
+
+    public AudioClip[] meows1;
+    public AudioClip[] meows2;
+    public AudioClip[] meows3;
+
 	public KeyCode Jump;
 
 	[HideInInspector] public bool facingRight = true;
@@ -19,8 +25,16 @@ public class PlayerMovement : MonoBehaviour {
 	private bool grounded = false;
 	public Transform groundCheck;
 
-	// Update is called once per frame
-	void FixedUpdate () {
+    private DayManager dayManagerRef;
+    public GameObject dayMan;
+
+    private void Start()
+    {
+        dayManagerRef = dayMan.GetComponent<DayManager>();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate () {
 		
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 
@@ -51,7 +65,23 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			anim.SetTrigger ("Talk");
 			Debug.Log ("Meow");
-		}
+            catAudio.clip = meows1[Random.Range(0,meows1.Length)];
+            catAudio.Play();
+
+            if (dayManagerRef.dayCount == 3)
+            {
+                //demanding meow
+                catAudio.clip = meows3[Random.Range(0, meows3.Length)];
+                catAudio.Play();
+             
+            }
+
+            else if (dayManagerRef.dayCount == 4)
+            {
+                catAudio.clip = meows2[Random.Range(0, meows2.Length)];
+                catAudio.Play();
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.S))
         {

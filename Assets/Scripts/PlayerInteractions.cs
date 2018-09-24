@@ -13,12 +13,14 @@ public class PlayerInteractions : MonoBehaviour {
     public GameObject dayMan;
     public DayManager dM;
     public GameObject blink;
+    public Rigidbody2D toyGO;
+
 
     public AudioSource purrSource;
     public AudioClip purr;
 	public AudioClip cronch;
 
-	public SpriteRenderer tail;
+    public SpriteRenderer tail;
 	public Sprite tail1;
 	public Sprite tail2;
 
@@ -48,6 +50,17 @@ public class PlayerInteractions : MonoBehaviour {
                     blink.SetActive(true);
                     StartCoroutine(WaitMachine());
                 }
+            }
+        }
+
+        if (other.gameObject.CompareTag("Toy"))
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                //make toy fly
+                var x = Random.Range(5, 10);
+                var y = Random.Range(5, 10);
+                toyGO.AddForce(new Vector2(x, y)*30f);
             }
         }
     }
