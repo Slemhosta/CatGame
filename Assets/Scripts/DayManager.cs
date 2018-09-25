@@ -13,6 +13,7 @@ public class DayManager : MonoBehaviour {
     public GameObject saturday;
     public GameObject sunday;
     public GameObject player;
+	public GameObject endScreen;
 
     public GameObject ownerObj;
 	public GameObject newOwnerObj;
@@ -127,6 +128,7 @@ public class DayManager : MonoBehaviour {
 
 		if (dayCount == 8) {
 			//End of game
+			endScreen.SetActive(true);
 		}
 	}
 }

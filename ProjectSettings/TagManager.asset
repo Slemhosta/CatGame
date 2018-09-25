@@ -9,6 +9,7 @@ TagManager:
   - Bed
   - NewOwner
   - Toy
+  - Door
   layers:
   - Default
   - TransparentFX

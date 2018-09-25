@@ -38,6 +38,15 @@ public class PlayerInteractions : MonoBehaviour {
             }
         }
 
+		if (other.gameObject.CompareTag ("Door")) 
+		{
+			if (Input.GetKeyDown (KeyCode.E)) {
+				dayNight.SetTrigger ("SleepTime");
+				dM.dayCount += 2;
+				//fade out anim 2
+			}
+		}
+
         if (other.gameObject.CompareTag("Bed"))
         {
             if (Input.GetKeyDown(KeyCode.E))
