@@ -19,6 +19,8 @@ public class DayManager : MonoBehaviour {
 	public GameObject newOwnerObj;
     public GameObject lightsOff;
     public GameObject fullFood;
+    public GameObject doorOBJ;
+    public GameObject crutch;
 
     public SpriteRenderer catState;
 
@@ -48,6 +50,7 @@ public class DayManager : MonoBehaviour {
     public IEnumerator WaitCalendar()
     {
         yield return new WaitForSeconds(4.0f);
+        ChangeDay();
     }
 
     public void ChangeDay ()
@@ -55,7 +58,6 @@ public class DayManager : MonoBehaviour {
 		dayCount++;
 
 		if (dayCount == 2) {
-			StartCoroutine (WaitCalendar ());
 			tuesday.SetActive (true);
 			pL.foodLayer.SetActive (true);
 			radio.clip = track2;
@@ -64,7 +66,6 @@ public class DayManager : MonoBehaviour {
 		}
 
 		if (dayCount == 3) {
-			StartCoroutine (WaitCalendar ());
 			wednesday.SetActive (true);
 			catState.sprite = bodDemand;
 			//Demanding meow
@@ -79,14 +80,12 @@ public class DayManager : MonoBehaviour {
 
 		if (dayCount == 4) {
 			catState.sprite = bodSad;
-			StartCoroutine (WaitCalendar ());
 			thursday.SetActive (true);
 			radio.Stop ();
 		}
 
 		if (dayCount == 5) {
 			catState.sprite = bodNervous;
-			StartCoroutine (WaitCalendar ());
 			friday.SetActive (true);
 			newOwnerObj.SetActive (true);
 			lightsOff.SetActive (false);
@@ -97,20 +96,18 @@ public class DayManager : MonoBehaviour {
 
 		if (dayCount == 6) {
 			catState.sprite = bodVerySad;
-			StartCoroutine (WaitCalendar ());
 			saturday.SetActive (true);
-			//door open
+            doorOBJ.SetActive(true);
 		}
 
 		if (dayCount == 7) {
-           
-			StartCoroutine (WaitCalendar ());
 			sunday.SetActive (true);
 			ownerObj.SetActive (true);
 			pL.foodLayer.SetActive (true);
 			newOwnerObj.SetActive (false);
 			radio.clip = track1;
 			radio.Play ();
+            crutch.SetActive(true);
 
             if (pL.foodLayer.activeInHierarchy == false)
             {

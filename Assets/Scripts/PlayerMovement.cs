@@ -28,6 +28,8 @@ public class PlayerMovement : MonoBehaviour {
     private DayManager dayManagerRef;
     public GameObject dayMan;
 
+    public bool canMove = true;
+
     private void Start()
     {
         dayManagerRef = dayMan.GetComponent<DayManager>();
@@ -35,28 +37,30 @@ public class PlayerMovement : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate () {
-		
-		float moveHorizontal = Input.GetAxis ("Horizontal");
+        if (canMove)
+        {
+            float moveHorizontal = Input.GetAxis("Horizontal");
 
-		Vector2 movement = new Vector2 (moveHorizontal, 0.0f);
+            Vector2 movement = new Vector2(moveHorizontal, 0.0f);
 
-		rb2d.AddForce (movement * speed);
+            rb2d.AddForce(movement * speed);
 
-		//These two checks if the speed of the player is more than walkingTriggerSpeed. If it is, play the walking animation.
-		//You will probably have to fine-tune this in the inspector.
-		if (rb2d.velocity.x > walkingTriggerSpeed || rb2d.velocity.x < -walkingTriggerSpeed) anim.SetBool ("Walking", true);
-		else anim.SetBool ("Walking", false);
+            //These two checks if the speed of the player is more than walkingTriggerSpeed. If it is, play the walking animation.
+            //You will probably have to fine-tune this in the inspector.
+            if (rb2d.velocity.x > walkingTriggerSpeed || rb2d.velocity.x < -walkingTriggerSpeed) anim.SetBool("Walking", true);
+            else anim.SetBool("Walking", false);
 
-		if (moveHorizontal > 0 && !facingRight) Flip();
+            if (moveHorizontal > 0 && !facingRight) Flip();
 
-		else if (moveHorizontal < 0 && facingRight) Flip();
+            else if (moveHorizontal < 0 && facingRight) Flip();
 
-		if (jump)
-		{
-			//jump anim
-			rb2d.AddForce(new Vector2 (0f,jumpForce));
-			jump = false;
-		}
+            if (jump)
+            {
+                //jump anim
+                rb2d.AddForce(new Vector2(0f, jumpForce));
+                jump = false;
+            }
+        }
 	}
 
 	void Update ()

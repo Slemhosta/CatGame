@@ -26,6 +26,8 @@ public class PlayerInteractions : MonoBehaviour {
 
     public bool isSwitching = false;
 
+    public PlayerMovement pm;
+
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Food"))
@@ -53,9 +55,10 @@ public class PlayerInteractions : MonoBehaviour {
             {
                 if (!isSwitching)
                 {
+                    pm.canMove = false;
                     isSwitching = true;
                     dayNight.SetTrigger("SleepTime");
-                    dM.ChangeDay();
+                    StartCoroutine(dM.WaitCalendar());
                     blink.SetActive(true);
                     StartCoroutine(WaitMachine());
                 }
@@ -67,8 +70,8 @@ public class PlayerInteractions : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.E))
             {
                 //make toy fly
-                var x = Random.Range(5, 10);
-                var y = Random.Range(5, 10);
+                var x = Random.Range(-1, 1);
+                var y = Random.Range(-5, 10);
                 toyGO.AddForce(new Vector2(x, y)*30f);
             }
         }
@@ -145,5 +148,6 @@ public class PlayerInteractions : MonoBehaviour {
         yield return new WaitForSeconds(5.0f);
         blink.SetActive(false);
         isSwitching = false;
+        pm.canMove = true;
     }
 }
